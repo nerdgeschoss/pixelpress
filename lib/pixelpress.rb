@@ -1,8 +1,8 @@
 require "pixelpress/version"
-require "pixelpress/printer/base"
-require "pixelpress/printer/preview"
+require "pixelpress/base"
+require "pixelpress/preview"
 
 module Pixelpress
-  class ApplicationPrinter < PixelPress::Printer::Base
+  class ApplicationPrinter < PixelPress::Base
   end
 end
