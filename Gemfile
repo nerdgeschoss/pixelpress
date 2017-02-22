@@ -7,4 +7,5 @@ gem "bundler"
 gem "rake"
 gem "rspec", "~> 3.0"
 gem "pry-byebug"
+gem 'activemodel'
 
