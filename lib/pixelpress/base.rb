@@ -1,4 +1,5 @@
-require "action_controller"
+require 'action_controller'
+require 'weasyprint'
 
 module Pixelpress
   class Base < ActionController::Base
@@ -12,8 +13,8 @@ module Pixelpress
     def pdf
       stream = StringIO.new pdf_data
       stream.singleton_class.class_eval { attr_accessor :original_filename, :content_type }
-      stream.original_filename = try(:file_name) || "document.pdf"
-      stream.content_type = "application/pdf"
+      stream.original_filename = try(:file_name) || 'document.pdf'
+      stream.content_type = 'application/pdf'
       stream
     end
 
@@ -37,13 +38,13 @@ module Pixelpress
     attr_accessor :template
 
     def template
-      ["printers", self.class.name.to_s.underscore, @template_name].join("/")
+      ['printers', self.class.name.to_s.underscore, @template_name].join('/')
     end
 
     private
 
     def pdf_data
-      return "%PDF-1.5" if Rails.env.test?
+      return '%PDF-1.5' if ENV['RAILS_ENV'] == 'test'
       WeasyPrint.new(html).to_pdf
     end
 
@@ -52,5 +53,4 @@ module Pixelpress
       @html = render_to_string(template)
     end
   end
-
 end
