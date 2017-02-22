@@ -1,7 +1,9 @@
 require "action_controller"
 
-module PixelPress
+module Pixelpress
   class Base < ActionController::Base
+    layout nil
+
     def html
       render(template) unless @html
       @html
@@ -9,7 +11,7 @@ module PixelPress
 
     def pdf
       stream = StringIO.new pdf_data
-      stream.class.class_eval { attr_accessor :original_filename, :content_type }
+      stream.singleton_class.class_eval { attr_accessor :original_filename, :content_type }
       stream.original_filename = try(:file_name) || "document.pdf"
       stream.content_type = "application/pdf"
       stream
@@ -46,7 +48,8 @@ module PixelPress
     end
 
     def render(template = caller_locations(1, 1)[0].label)
-      @html = render_to_string(template, layout: "pdf")
+      # binding.pry
+      @html = render_to_string(template)
     end
   end
 
