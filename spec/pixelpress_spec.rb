@@ -31,4 +31,9 @@ describe Pixelpress do
     printer = InvoicePrinter.invoice.pdf
     expect(printer.original_filename).to eq 'sasha'
   end
+
+  it 'checks if render method renders html' do
+    html = InvoicePrinter.invoice.send :render, 'printers/invoice_printer/invoice'
+    expect(html).to include '<html>'
+  end
 end

@@ -38,7 +38,7 @@ module Pixelpress
     attr_accessor :template
 
     def template
-      ['printers', self.class.name.to_s.underscore, @template_name].join('/')
+      ['printers', self.class.to_s.underscore, @template_name].join('/')
     end
 
     private
