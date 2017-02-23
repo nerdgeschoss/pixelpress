@@ -39,6 +39,6 @@ describe Pixelpress do
 
   it 'checks if it is calling weasyprinter when html is called' do
     result = InvoicePrinter.invoice.html
-    expect(result).not_to include '%PDF-1.5' 
+    expect(result).not_to include '%PDF-1.5'
   end
 end
