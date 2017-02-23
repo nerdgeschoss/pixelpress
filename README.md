@@ -23,12 +23,11 @@ Or install it yourself as:
 
 ## Usage
 
-Usage instructions here: 
+Usage instructions: 
 	1. run basic generator to get your AppPrinter:
 		 $ rails g pixelpress:install   
 	2. run printer generator providing name of your printer with methods to be generated:
-		 $ rails generate pixelpress:printer NAME [method_name1 method_name2 ...] [options]	
-	3. next to add generator for views	 
+		 $ rails generate pixelpress:printer NAME [method_name1 method_name2 ...] [options]	 
 
 		 $ rails g pixelpress:install 
 
@@ -42,7 +41,6 @@ Usage instructions here:
 	 $ rails g pixelpress:printer invoice customer_invoice bla_invoice 	
 
 	 it will generate `app/printers/invoice_printer.rb` file that looks like this
-  	
   	 ```ruby
   	 class InvoicePrinter < ApplicationPrinter
 
@@ -57,7 +55,7 @@ Usage instructions here:
   	 ```
 
    Also this command will generate corresponding templates for custom printer, so you will have set of `.pdf.erb` files located in your `app/views/printers/invoice/` folder with this files in it: 
-     `customer_invoice.pdf.erb`  and  
+     `customer_invoice.pdf.erb`
      `bla_invoice.pdf.erb`
 
 

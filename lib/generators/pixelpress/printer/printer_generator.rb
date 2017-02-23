@@ -12,7 +12,7 @@ module Pixelpress
 
       def create_custom_printer_views
       	passed_methods.each do |method_name|
-          template 'sasha.pdf.erb', File.join('app/views/printers', class_path, "#{file_name}_printer/#{method_name}.pdf.erb")
+          template 'sasha.pdf.erb', File.join('app/views/printers', class_path, "#{file_name}/#{method_name}.pdf.erb")
         end
       end
     end
