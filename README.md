@@ -23,8 +23,12 @@ Or install it yourself as:
 
 ## Usage
 
-Usage instructions: 
+Usage instructions here: 
 	1. run basic generator to get your AppPrinter:
+		 $ rails g pixelpress:install   
+	2. run printer generator providing name of your printer with methods to be generated:
+		 $ rails g pixelpress:printer invoice customer_invoice bla_invoice 	
+	3. next to add generator for views	 
 
 		 $ rails g pixelpress:install 
 
