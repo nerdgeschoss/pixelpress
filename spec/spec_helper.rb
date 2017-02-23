@@ -4,7 +4,6 @@ require 'pixelpress/base'
 require 'pry'
 require 'active_model'
 require 'weasyprint'
-require 'rails'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
