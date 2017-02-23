@@ -1,10 +1,10 @@
-module Printer
+module Pixelpress
   module Generators
     class InstallGenerator < ::Rails::Generators::Base
       source_root File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
 
       def copy_application_policy
-        template 'sasha.rb', 'app/sasha.rb'
+        template 'application_printer.rb', 'app/printers/application_printer.rb'
       end
     end
   end

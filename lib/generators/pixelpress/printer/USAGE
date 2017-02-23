@@ -1,0 +1,8 @@
+Description:
+    Generates a custom printer with the given name.
+
+Example:
+    rails generate pixelpress:printer invoice method_name1 meth_name2
+
+    This will create:
+        app/printers/invoice_printers.rb 
