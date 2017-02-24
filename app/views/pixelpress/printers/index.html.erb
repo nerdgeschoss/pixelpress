@@ -1,0 +1,8 @@
+<% @printers.each do |printer| %>
+  <% printer.previews.each do |preview| %>
+    <a href="/rails/printers/<%= printer.printer_name %>/<%= preview.to_s.underscore %>">
+      <%= printer.class.name %>#<%= preview %>
+    </a>
+    <br>
+  <% end %>
+<% end %>
