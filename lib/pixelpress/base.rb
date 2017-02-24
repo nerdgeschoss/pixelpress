@@ -3,8 +3,6 @@ require 'weasyprint'
 
 module Pixelpress
   class Base < ActionController::Base
-    layout nil
-
     def html
       render(template) unless @html
       @html
@@ -49,7 +47,6 @@ module Pixelpress
     end
 
     def render(template = caller_locations(1, 1)[0].label)
-      # binding.pry
       @html = render_to_string(template)
     end
   end
