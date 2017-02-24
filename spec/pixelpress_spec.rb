@@ -20,7 +20,7 @@ describe Pixelpress do
   end
 
   it 'selects the right template' do
-    expect(InvoicePrinter.invoice.send(:template)).to eq 'printers/invoice_printer/invoice'
+    expect(InvoicePrinter.invoice.send(:template)).to eq 'printers/invoice/invoice'
   end
 
   it 'does output some html' do
@@ -33,7 +33,7 @@ describe Pixelpress do
   end
 
   it 'checks if render method renders html' do
-    html = InvoicePrinter.invoice.send :render, 'printers/invoice_printer/invoice'
+    html = InvoicePrinter.invoice.send :render, 'printers/invoice/invoice'
     expect(html).to include '<html>'
   end
 
