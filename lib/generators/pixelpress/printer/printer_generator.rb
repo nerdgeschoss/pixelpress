@@ -8,12 +8,15 @@ module Pixelpress
       hook_for :test_framework
 
       def create_custom_printer
+        template 'application_printer.rb', 'app/printers/application_printer.rb' unless Rails.root.join("app/printers/application_printer.rb").exist?
+        template 'printer.pdf.erb', 'app/views/layouts/printer.pdf.erb' unless Rails.root.join("app/views/layouts/printer.pdf.erb").exist?
         template 'printer.rb', File.join('app/printers', class_path, "#{file_name}_printer.rb")
       end
 
       def create_custom_printer_views
         passed_methods.each do |method_name|
-          template 'sasha.pdf.erb', File.join('app/views/printers', class_path, "#{file_name}/#{method_name}.pdf.erb")
+          @method_name = method_name
+          template 'template.pdf.erb', File.join('app/views/printers', class_path, "#{file_name}/#{method_name}.pdf.erb")
         end
       end
     end
