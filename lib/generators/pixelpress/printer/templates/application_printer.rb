@@ -1,3 +1,3 @@
 class ApplicationPrinter < Pixelpress::Base
-  # layout "pdf"
+  layout "printer"
 end
