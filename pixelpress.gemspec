@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'actionpack'
   spec.add_dependency 'weasyprint'
+  spec.add_dependency 'generator_spec', '~> 0.9.3'
 end

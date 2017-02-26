@@ -4,11 +4,14 @@ require 'pixelpress/base'
 require 'pry'
 require 'active_model'
 require 'weasyprint'
+require 'generator_spec'
+require 'rails/generators'
+require 'rails/generators/named_base'
+require 'generators/pixelpress/printer/printer_generator'
+require 'pathname'
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
-
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
