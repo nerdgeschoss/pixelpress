@@ -7,12 +7,12 @@ module Pixelpress
       end
     end
 
+    def previews
+      methods - Object.methods - [:previews, :printer_name] 
+    end 
+
     def printer_name
       self.class.name.underscore.gsub("/", "_")
-    end
-
-    def previews
-      methods - Object.methods - [:previews]
     end
   end
 end
