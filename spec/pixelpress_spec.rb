@@ -1,30 +1,33 @@
 require 'spec_helper'
 
 describe Pixelpress do
-  before(:all) { ActionController::Base.view_paths << File.join(spec_root) }
+  let(:renderer) { TestRenderer.new }
 
-  class Invoice
-    include ActiveModel::Model
-
-    attr_accessor :company_invoice
+  before(:each) do
+    ActionController::Base.view_paths << File.join(spec_root)
+    InvoicePrinter.default_renderer = renderer
   end
 
   class InvoicePrinter < Pixelpress::Base
-    # layout "pdf"
-
-    def invoice; end
+    def invoice
+    end
 
     def file_name
       'sasha'
     end
   end
 
-  it 'selects the right template' do
-    expect(InvoicePrinter.invoice.send(:template)).to eq 'printers/invoice/invoice'
+  class TestRenderer
+    attr_accessor :called
+
+    def render(html)
+      self.called = true
+      ""
+    end
   end
 
-  it 'does output some html' do
-    expect(InvoicePrinter.invoice.html).to include 'sasha'
+  it 'selects the right template' do
+    expect(InvoicePrinter.invoice.html).to include 'Invoice'
   end
 
   it 'checks if the file name of pdf is correct' do
@@ -32,13 +35,13 @@ describe Pixelpress do
     expect(printer.original_filename).to eq 'sasha'
   end
 
-  it 'checks if render method renders html' do
-    html = InvoicePrinter.invoice.send :render, 'printers/invoice/invoice'
-    expect(html).to include '<html>'
+  it 'checks if it is calling weasyprinter when html is called' do
+    InvoicePrinter.invoice.html
+    expect(renderer.called).to be_falsy
   end
 
-  it 'checks if it is calling weasyprinter when html is called' do
-    result = InvoicePrinter.invoice.html
-    expect(result).not_to include '%PDF-1.5'
+  fit 'checks if it is calling weasyprinter when pdf is called' do
+    InvoicePrinter.invoice.pdf
+    expect(renderer.called).to be_truthy
   end
 end
