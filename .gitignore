@@ -11,3 +11,5 @@
 
 # rspec failure tracking
 .rspec_status
+/.byebug_history
+/spec/lib/generators/test/generator_spec/test_destination

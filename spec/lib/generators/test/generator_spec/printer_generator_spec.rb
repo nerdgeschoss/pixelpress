@@ -1,13 +1,16 @@
 require 'spec_helper'
 
 RSpec.describe Pixelpress::Generators::PrinterGenerator do
-  destination File.expand_path('../test_destination', __FILE__)
+  path = File.expand_path('../test_destination', __FILE__)
+  destination path
   arguments %w(Auth::UserPrinter user_data)
 
   before(:each) do
     prepare_destination
-    # File.write("../test_destination/config/routes.rb", 'mount Pixelpress::Engine => "rails" if Rails.env.development?')
-    allow(Rails).to receive(:root).and_return Pathname.new('../test_destination/app/')
+    allow(Rails).to receive(:root).and_return Pathname.new(path)
+    puts "#{path}/config"
+    FileUtils.mkdir_p "#{path}/config"
+    File.write("#{path}/config/routes.rb", 'mount Pixelpress::Engine => "rails" if Rails.env.development?')
     run_generator
   end
 

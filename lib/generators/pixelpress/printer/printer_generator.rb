@@ -31,6 +31,8 @@ module Pixelpress
 
       def engine_mounted?
         routes = Rails.root.join('config/routes.rb')
+        puts "HELLO!"
+        puts routes
         routes.exist? && routes.read.include?('Pixelpress::Engine')
       end
     end
