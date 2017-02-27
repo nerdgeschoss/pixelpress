@@ -8,7 +8,6 @@ RSpec.describe Pixelpress::Generators::PrinterGenerator do
   before(:each) do
     prepare_destination
     allow(Rails).to receive(:root).and_return Pathname.new(path)
-    puts "#{path}/config"
     FileUtils.mkdir_p "#{path}/config"
     File.write("#{path}/config/routes.rb", 'mount Pixelpress::Engine => "rails" if Rails.env.development?')
     run_generator

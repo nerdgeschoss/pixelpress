@@ -25,14 +25,12 @@ module Pixelpress
 
       private
 
-      def file_name # :doc:
+      def file_name
         @_file_name ||= super.gsub(/_printer/i, '')
       end
 
       def engine_mounted?
         routes = Rails.root.join('config/routes.rb')
-        puts "HELLO!"
-        puts routes
         routes.exist? && routes.read.include?('Pixelpress::Engine')
       end
     end
