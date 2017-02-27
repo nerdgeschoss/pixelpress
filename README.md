@@ -1,9 +1,7 @@
 # Pixelpress
 [![CircleCI](https://circleci.com/gh/nerdgeschoss/pixelpress/tree/master.svg?style=svg)](https://circleci.com/gh/nerdgeschoss/pixelpress/tree/master)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pixelpress`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Modeled after `ActionMailer` this gem allows you to render PDFs from HTML via Rails templating engine. Also you can preview your PDF templates via a supplied engine during development.
 
 ## Installation
 
@@ -23,41 +21,61 @@ Or install it yourself as:
 
 ## Usage
 
-Usage instructions: 
-	1. run basic generator to get your AppPrinter:
-		 $ rails g pixelpress:install   
-	2. run printer generator providing name of your printer with methods to be generated:
-		 $ rails generate pixelpress:printer NAME [method_name1 method_name2 ...] [options]	 
+Run the printer generator providing the name of your printer with methods to be generated:
+```bash
+rails generate pixelpress:printer NAME [method_name1 method_name2 ...] [options]
+```
 
-		 $ rails g pixelpress:install 
+This creates an `ApplicationPrinter` in `app/printers` and the corresponding subclass and also mounts the engine in your `config/routes.rb` file.
 
-	2. run printer generator providing name of your printer with methods to be generated:
+**Example**
+```bash
+$ rails g pixelpress:printer invoice customer_invoice delivery_document 	
+```
+will generate `app/printers/invoice_printer.rb` file which looks like this:
+```ruby
+class InvoicePrinter < ApplicationPrinter
+ 	def customer_invoice
+ 		# put your code here
+ 	end
 
-		 $ rails generate pixelpress:printer NAME [method_name1 method_name2 ...] [options]	 
+ 	def delivery_document
+ 		# put your code here
+ 	end
+end
+```
 
-1.command will run gen that will create folder printers withiun your `app/` and will generate for you generic AppPrinter
-2.command will generate custom printer with name and methods that you provided in commandline within folder `app/printers` -> example 
+Also this command will generate the corresponding templates  as `.pdf.erb` files located in `app/views/printers/invoice/`:
 
-	 $ rails g pixelpress:printer invoice customer_invoice bla_invoice 	
+- `customer_invoice.pdf.erb`
+- `delivery_document.pdf.erb`
 
-	 it will generate `app/printers/invoice_printer.rb` file that looks like this
-  	 ```ruby
-  	 class InvoicePrinter < ApplicationPrinter
+You can preview your documents by running `rails s` and go to
 
-  	 	def customer_invoice
-  	 		#put your code here
-  	 	end
+```
+localhost:3000/rails/printers
+```
 
-  	 	def bla_invoice
-  	 		#put here code
-  	 	end
-  	 end
-  	 ```
+To use your printers in code, you can instantiate them just like mailers:
 
-   Also this command will generate corresponding templates for custom printer, so you will have set of `.pdf.erb` files located in your `app/views/printers/invoice/` folder with this files in it: 
-     `customer_invoice.pdf.erb`
-     `bla_invoice.pdf.erb`
+```ruby
+InvoicePrinter.customer_invoice.pdf # render a temporary pdf file
+InvoicePrinter.customer_invoice.html # get the rendered document in html format
+```
 
+So you can send them to the client via a controller action:
+
+```ruby
+class InvoicesController < ApplicationController
+  def show
+    document = InvoicePrinter.customer_invoice
+    respond_to do |format|
+      format.html { render html: document.html }
+      format.pdf { send_data document.pdf.read, disposition: 'inline', type: 'application/pdf' }
+    end
+  end
+end
+```
 
 ## Development
 
@@ -73,4 +91,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Alex/p
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
