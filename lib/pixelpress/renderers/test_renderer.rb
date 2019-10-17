@@ -1,5 +1,5 @@
 class Pixelpress::TestRenderer
   def render(html)
-     '%PDF-1.5'
+     File.binread(File.expand_path("../../../../spec/fixtures/files/test.pdf", __FILE__))
   end
 end
