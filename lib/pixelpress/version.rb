@@ -1,3 +1,3 @@
 module Pixelpress
-  VERSION = '0.2.2'.freeze
+  VERSION = '0.0.1'.freeze
 end
