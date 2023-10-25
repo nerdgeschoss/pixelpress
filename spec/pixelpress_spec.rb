@@ -4,7 +4,7 @@ describe Pixelpress do
   let(:renderer) { TestRenderer.new }
 
   before(:each) do
-    ActionController::Base.view_paths << File.join(spec_root)
+    ActionController::Base.append_view_path File.join(spec_root)
     InvoicePrinter.renderer = renderer
   end
 

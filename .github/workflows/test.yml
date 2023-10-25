@@ -16,5 +16,5 @@ jobs:
         with:
           packages: weasyprint
           version: 1.0
-      - name: Lint Ruby
+      - name: Test
         run: bundle exec rspec
