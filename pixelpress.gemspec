@@ -6,8 +6,8 @@ require 'pixelpress/version'
 Gem::Specification.new do |spec|
   spec.name          = 'pixelpress'
   spec.version       = Pixelpress::VERSION
-  spec.authors       = ['Alex']
-  spec.email         = ['aleksandra@nerdgeschoss.de']
+  spec.authors       = ['Alex', 'Jens Ravens']
+  spec.email         = ['aleksandra@nerdgeschoss.de', 'jens@nerdgeschoss.de']
 
   spec.summary       = 'PDF printer'
   spec.homepage      = 'https://github.com/nerdgeschoss/pixelpress'
@@ -21,6 +21,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'actionpack'
-  spec.add_dependency 'weasyprint'
-  spec.add_dependency 'generator_spec', '~> 0.9.3'
+  spec.add_dependency 'activesupport'
 end

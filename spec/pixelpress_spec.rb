@@ -4,8 +4,8 @@ describe Pixelpress do
   let(:renderer) { TestRenderer.new }
 
   before(:each) do
-    ActionController::Base.view_paths << File.join(spec_root)
-    InvoicePrinter.default_renderer = renderer
+    ActionController::Base.append_view_path File.join(spec_root)
+    InvoicePrinter.renderer = renderer
   end
 
   class InvoicePrinter < Pixelpress::Base
@@ -40,7 +40,7 @@ describe Pixelpress do
     expect(renderer.called).to be_falsy
   end
 
-  fit 'checks if it is calling weasyprinter when pdf is called' do
+  it 'checks if it is calling weasyprinter when pdf is called' do
     InvoicePrinter.invoice.pdf
     expect(renderer.called).to be_truthy
   end
