@@ -1,16 +1,19 @@
 class Pixelpress::WeasyPrintRenderer
   def render(html)
 
-    command = [executable_path, "-", "-"].shelljoin
+    command = "#{executable_path} --encoding UTF-8 - -"
 
-    result = IO.popen(command, "wb+") do |pdf|
-      pdf.puts(html)
-      pdf.close_write
-      pdf.gets(nil)
+    error = nil
+    result = nil
+    process = nil
+    Open3.popen3(command) do |stdin, stdout, stderr, thread|
+      stdin.puts html
+      stdin.close_write
+      result = stdout.read
+      error = stderr.read
+      process = thread.value
     end
-
-    # $? is thread safe per http://stackoverflow.com/questions/2164887/thread-safe-external-process-in-ruby-plus-checking-exitstatus
-    raise "command failed (exitstatus=#{$?.exitstatus}): #{command}" if result.to_s.strip.empty? || !$?.success?
+    raise "command failed (exitstatus=#{result.exitstatus}): #{command}\n #{error}" unless process.success?
     return result
   end
   
