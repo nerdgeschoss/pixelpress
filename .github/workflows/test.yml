@@ -11,5 +11,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Install dependencies
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: weasyprint
+          version: 1.0
       - name: Lint Ruby
         run: bundle exec rspec
