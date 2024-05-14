@@ -1,26 +1,23 @@
-require_relative 'fake_file'
-
 module Pixelpress
   class Document
-    attr_reader :html
-    attr_reader :file_name
+    attr_reader :filename
 
-    def initialize(html, renderer, options = {})
-      @html = html
+    def initialize(file, renderer, options = {})
+      @file = file
       @renderer = renderer
-      @file_name = options[:file_name]
+      @filename = options[:filename]
+    end
+
+    def html
+      file.read
     end
 
     def pdf
-      FakeFile.new pdf_data, original_filename: file_name
+      @pdf ||= renderer.render(file)
     end
 
     private
 
-    attr_accessor :renderer
-
-    def pdf_data
-      @pdf_data ||= renderer.render(html)
-    end
+    attr_accessor :renderer, :file
   end
 end
