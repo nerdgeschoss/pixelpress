@@ -9,6 +9,7 @@ require 'rails/generators/named_base'
 require 'generators/pixelpress/printer/printer_generator'
 require 'pathname'
 require 'open3'
+require 'pdf-reader'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
