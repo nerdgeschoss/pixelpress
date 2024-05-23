@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'activemodel'
+gem 'pdf-reader'
 gem 'bundler'
 gem 'pry-byebug'
 gem 'rake'

@@ -2,7 +2,7 @@ class Pixelpress::WeasyPrintRenderer
   def render(input)
     output = Tempfile.new
 
-    system executable_path, input.path, output.path, exception: true
+    system executable_path, "--encoding", "utf-8", input.path, output.path, exception: true
     return output
   end
   

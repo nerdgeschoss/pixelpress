@@ -3,14 +3,28 @@ require 'spec_helper'
 
 describe Pixelpress::WeasyPrintRenderer do
   let(:renderer) { Pixelpress::WeasyPrintRenderer.new }
-  let (:input) do 
+  let (:input) do
     file = Tempfile.new
-    file.write("<html><body><h1>hello</h1></body></html>")
+    file.write <<~HTML
+      <html>
+        <head>
+          <meta name=author content="Bärbel Garçon">
+        </head>
+        <body>
+          <h1>Hêllo Wörld</h1>
+        </body>
+      </html>
+    HTML
     file.rewind
     file
   end
 
   it "should render html to pdf" do
-    expect(renderer.render(input).read).to start_with("%PDF")
+    reader = PDF::Reader.new(renderer.render(input))
+
+    expect(reader.info[:Author]).to eq("Bärbel Garçon")
+    expect(reader.page_count).to eq(1)
+    page = reader.pages.sole
+    expect(page.text).to eq("Hêllo Wörld")
   end
 end
