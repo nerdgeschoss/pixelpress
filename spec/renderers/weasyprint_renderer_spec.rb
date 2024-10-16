@@ -27,4 +27,14 @@ describe Pixelpress::WeasyPrintRenderer do
     page = reader.pages.sole
     expect(page.text).to eq("Hêllo Wörld")
   end
+
+  context "when the weasyprint binary can't be found" do
+    it "raises an error" do
+      expect(renderer).to receive(:`).with('which weasyprint').and_return("")
+
+      expect {
+        PDF::Reader.new(renderer.render(input))
+      }.to raise_error(/Unable to locate weasyprint/)
+    end
+  end
 end
