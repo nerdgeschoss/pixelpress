@@ -1,10 +1,16 @@
 class Pixelpress::WeasyPrintRenderer
   class WeasyPrintInstallationError < StandardError; end
+  class WeasyPrintExecutionError < StandardError; end
 
   def render(input)
     output = Tempfile.new
 
-    system executable_path, "--encoding", "utf-8", input.path, output.path, exception: true
+    success = system(executable_path, "--encoding", "utf-8", input.path, output.path)
+
+    unless success
+      raise WeasyPrintExecutionError.new("WeasyPrint execution failed with exit code #{$?.exitstatus}")
+    end
+
     return output
   end
 
