@@ -37,4 +37,16 @@ describe Pixelpress::WeasyPrintRenderer do
       }.to raise_error(/Unable to locate weasyprint/)
     end
   end
+
+  context "when weasyprint exits with non-zero exit code" do
+    it "reraises a reasonable error" do
+      expect(renderer).to receive(:system) do
+        Kernel.system("exit 1")
+      end
+
+      expect {
+        renderer.render(input)
+      }.to raise_error(Pixelpress::WeasyPrintRenderer::WeasyPrintExecutionError, "WeasyPrint execution failed with exit code 1")
+    end
+  end
 end
