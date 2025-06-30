@@ -9,7 +9,7 @@ module Pixelpress
     end
 
     def html
-      file.read
+      file.read.html_safe
     end
 
     def pdf
