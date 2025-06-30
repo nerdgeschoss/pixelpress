@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  app:
+    image: ghcr.io/nerdgeschoss/nerdgeschoss/development-environment:3.4-22
+    volumes:
+      - ../..:/workspaces:cached
+      - ~/.netrc:/root/.netrc
+      - ~/.ssh:/root/.ssh
+      - ~/.config/gh:/root/.config/gh
+      - ~/.cache/devcontainer/playwright:/root/.cache/devcontainer/playwright
+      - ~/.aws:/root/.aws
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    environment:
+      TZ: Europe/Berlin
+      EDITOR: code --wait

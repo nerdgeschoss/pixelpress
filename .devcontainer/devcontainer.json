@@ -1,0 +1,32 @@
+{
+    "name": "Pixelpress",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "postCreateCommand": "bin/setup",
+    "remoteUser": "root",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "GitHub.copilot",
+                "esbenp.prettier-vscode",
+                "sianglim.slim",
+                "Shopify.ruby-lsp",
+                "EditorConfig.EditorConfig",
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "rubyLsp.rubyVersionManager": {
+                    "identifier": "rvm"
+                },
+                "[ruby]": {
+                    "editor.formatOnSave": true,
+                    "editor.defaultFormatter": "Shopify.ruby-lsp"
+                }
+            }
+        }
+    },
+    "features": {},
+    "forwardPorts": []
+}
