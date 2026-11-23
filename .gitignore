@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 /pixelpress-0.1.0.gem
+.DS_Store
 
 # rspec failure tracking
 .rspec_status

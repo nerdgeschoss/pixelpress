@@ -12,8 +12,8 @@ module Pixelpress
       file.read.html_safe
     end
 
-    def pdf
-      @pdf ||= renderer.render(file)
+    def pdf(...)
+      @pdf ||= renderer.render(file, ...)
     end
 
     private

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Pixelpress do
   let(:renderer) { Pixelpress::TestRenderer.new }
-  let(:document) do 
+  let(:document) do
     file = Tempfile.new
     file.write <<~HTML
       <html>
@@ -24,8 +24,13 @@ describe Pixelpress do
     document.html
   end
 
-  it 'checks if it is calling weasydocument when pdf is called' do
+  it 'calls weasyprint when pdf is called' do
     expect(renderer).to receive(:render)
     document.pdf
+  end
+
+  it 'passes all arguments to the renderer' do
+    expect(renderer).to receive(:render).with(an_instance_of(Tempfile), :foo, bar: "baz")
+    document.pdf(:foo, bar: "baz")
   end
 end
