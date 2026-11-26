@@ -14,7 +14,9 @@ jobs:
       - name: Install dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: weasyprint
+          packages: pipx
           version: 1.0
+      - name: Install WeasyPrint
+        run: pipx install weasyprint==70.0
       - name: Test
         run: bundle exec rspec

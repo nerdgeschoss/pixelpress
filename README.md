@@ -79,6 +79,23 @@ class InvoicesController < ApplicationController
 end
 ```
 
+You can also pass additional arguments to the underlying renderer, if it supports it. For example, to pass CLI flags to WeasyPrint, you can do:
+
+```ruby
+document.pdf(flags: {
+  attachment: "factur-x.xml",
+  attachment_relationship: "Data",
+  xmp_metadata: "rdf.xml",
+  pdf_variant: "pdf/a-3a"
+})
+```
+
+Which gets transformed to:
+
+```sh
+weasyprint --attachment "factur-x.xml" --attachment-relationship "Data" --xmp-metadata "rdf.xml" --pdf-variant "pdf/a-3a"
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

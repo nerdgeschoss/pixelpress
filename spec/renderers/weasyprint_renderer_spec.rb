@@ -6,7 +6,7 @@ describe Pixelpress::WeasyPrintRenderer do
   let (:input) do
     file = Tempfile.new
     file.write <<~HTML
-      <html>
+      <html lang="de">
         <head>
           <meta name=author content="Bärbel Garçon">
         </head>
@@ -19,13 +19,28 @@ describe Pixelpress::WeasyPrintRenderer do
     file
   end
 
-  it "should render html to pdf" do
+  it "renders html to pdf" do
     reader = PDF::Reader.new(renderer.render(input))
 
     expect(reader.info[:Author]).to eq("Bärbel Garçon")
     expect(reader.page_count).to eq(1)
     page = reader.pages.sole
     expect(page.text).to eq("Hêllo Wörld")
+  end
+
+  it "can include ZUGFeRD type data" do
+    rendered = renderer.render(
+      input,
+      flags: {
+        attachment: File.join(spec_root, "fixtures/factur-x.xml"),
+        attachment_relationship: "Data",
+        xmp_metadata: File.join(spec_root, "fixtures/rdf.xml"),
+        pdf_variant: "pdf/a-3a"
+      }
+    )
+    reader = PDF::Reader.new(rendered)
+
+    expect(reader.metadata).to include("<rdf:RDF")
   end
 
   context "when the weasyprint binary can't be found" do
